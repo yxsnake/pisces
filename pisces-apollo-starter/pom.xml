@@ -13,7 +13,7 @@
     <artifactId>pisces-apollo-starter</artifactId>
     <name>pisces-apollo-starter</name>
     <description>整合携程apollo配置中心</description>
-    <url>https://github.com/yxsnake/pisces.git</url>
+    <url>https://github.com/yxsnake/pisces</url>
 
     <licenses>
         <license>
