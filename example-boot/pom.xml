@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.2</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>io.github.yxsnake</groupId>
+    <artifactId>example-boot</artifactId>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <start-class>com.github.snake.Application</start-class>
+        <lombok.version>1.18.30</lombok.version>
+        <spring-boot.version>3.2.2</spring-boot.version>
+        <pisces.version>1.0.0</pisces.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.github.yxsnake</groupId>
+            <artifactId>pisces-web-core-starter</artifactId>
+            <version>${pisces.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.yxsnake</groupId>
+            <artifactId>pisces-mybatis-plus-starter</artifactId>
+            <version>${pisces.version}</version>
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.yxsnake</groupId>-->
+<!--            <artifactId>pisces-rocketmq-starter</artifactId>-->
+<!--            <version>${pisces.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.github.yxsnake</groupId>-->
+<!--            <artifactId>pisces-redis-starter</artifactId>-->
+<!--            <version>${pisces.version}</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>io.github.yxsnake</groupId>
+            <artifactId>pisces-file-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.yxsnake</groupId>
+            <artifactId>pisces-request-log-starter</artifactId>
+        </dependency>
+        <!--    <dependency>-->
+        <!--      <groupId>io.github.yxsnake</groupId>-->
+        <!--      <artifactId>pisces-audit-log-starter</artifactId>-->
+        <!--    </dependency>-->
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.yxsnake</groupId>
+                <artifactId>pisces</artifactId>
+                <version>1.0.0</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <profiles>
+        <!-- 本地环境（默认） -->
+        <profile>
+            <!-- 本地环境（默认） -->
+            <id>local</id>
+            <properties>
+                <activatedYml>local</activatedYml>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activatedYml>dev</activatedYml>
+            </properties>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <activatedYml>prd</activatedYml>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <mainClass>${start-class}</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>-Xlint:deprecation</arg>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>1.5.0.RC1</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <!--开发环境检查-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <rules>
+                        <requireJavaVersion>
+                            <message>JDK版本过低，请至少升级到${java.version}</message>
+                            <version>[${java.version},)</version>
+                        </requireJavaVersion>
+                    </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <!-- 跳过install -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <configuration>
+                    <!-- 跳过deploy -->
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <filtering>false</filtering>
+            </resource>
+            <!-- 下面这段缺少则keystore.jks打包时不会生成到jar包里 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+
+
+    <distributionManagement>
+        <!-- 正式发布地址 -->
+        <repository>
+            <id>rdc-releases</id>
+            <url>https://packages.aliyun.com/maven/repository/2134526-release-dxgwZb/</url>
+            <name>project release repository</name>
+        </repository>
+        <!-- 快照地址 -->
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url>https://packages.aliyun.com/maven/repository/2134526-snapshot-XFnNp7/</url>
+            <name>project snapshot repository</name>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+</project>

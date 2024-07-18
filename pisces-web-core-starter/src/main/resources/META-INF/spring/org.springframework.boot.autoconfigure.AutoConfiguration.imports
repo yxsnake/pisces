@@ -1,0 +1,4 @@
+io.github.yxsnake.pisces.web.core.configuration.WebCoreAutoConfiguration
+io.github.yxsnake.pisces.web.core.framework.controller.health.HealthController
+io.github.yxsnake.pisces.web.core.configuration.WebJsonConverterConfiguration
+

@@ -1,0 +1,48 @@
+*.class
+
+# macOS
+.DS_Store
+
+
+!.mvn/wrapper/maven-wrapper.jar
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.log
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+/target/
+pisces-apollo-starter/target
+pisces-audit-log-starter/target
+pisces-core/target
+pisces-elasticsearch-starter/target
+pisces-file-starter/target
+pisces-mybatis-plus-starter/target
+pisces-redis-starter/target
+pisces-request-log-starter/target
+pisces-rocketmq-starter/target
+pisces-web-core-starter/target
+pisces-xxl-job-starter/target
+
+example-boot/target
+
+**/.flattened-pom.xml

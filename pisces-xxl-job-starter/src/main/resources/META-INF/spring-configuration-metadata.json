@@ -1,0 +1,54 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "name": "xxl.job",
+      "type": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "defaultValue": true,
+      "name": "xxl.job.enabled",
+      "description": "是否开启",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "defaultValue": "",
+      "name": "xxl.job.address",
+      "description": "xxlJob服务器地址",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "defaultValue": "",
+      "name": "xxl.job.token",
+      "description": "xxlJob服务器访问token",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "defaultValue": "",
+      "name": "xxl.job.ip",
+      "description": "执行器ip",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "defaultValue": "",
+      "name": "xxl.job.port",
+      "description": "执行器端口",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.xxl.job.configuration.properties.XxlJobProperties",
+      "defaultValue": "",
+      "name": "xxl.job.application-name",
+      "description": "应用名称",
+      "type": "java.lang.String"
+    }
+  ]
+}

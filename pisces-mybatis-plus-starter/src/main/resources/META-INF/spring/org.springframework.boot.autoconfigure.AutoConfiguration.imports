@@ -1,0 +1,4 @@
+io.github.yxsnake.pisces.mybatis.plus.configuration.CustomMybatisPlusAutoConfiguration
+io.github.yxsnake.pisces.mybatis.plus.configuration.CustomP6spyConfiguration
+io.github.yxsnake.pisces.mybatis.plus.configuration.CustomTenantConfiguration
+io.github.yxsnake.pisces.mybatis.plus.configuration.CustomMetaObjectConfiguration
