@@ -11,44 +11,7 @@
     </parent>
 
     <artifactId>pisces-core</artifactId>
-    <name>pisces-core</name>
-    <description>基础工具类</description>
-    <url>https://github.com/yxsnake/pisces</url>
-
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>https://github.com/yxsnake/pisces/blob/main/LICENSE</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <url>https://github.com/yxsnake/pisces</url>
-        <connection>https://github.com/yxsnake/pisces.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:yxsnake/pisces.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/yxsnake/pisces/issues</url>
-    </issueManagement>
-    <developers>
-        <developer>
-            <id>snake</id>
-            <name>snake</name>
-            <email>370696614@qq.com</email>
-            <organization>https://github.com/yxsnake/pisces</organization>
-            <organizationUrl>https://github.com/yxsnake/pisces</organizationUrl>
-            <timezone>+8</timezone>
-            <roles>
-                <role>Project Manager</role>
-                <role>Architect</role>
-            </roles>
-            <properties>
-                <picUrl>https://i1.hdslb.com/bfs/face/98a570a6c6d6a263bcb0cba9e15e492125e9d310.jpg@120w_120h_1c</picUrl>
-            </properties>
-        </developer>
-    </developers>
+    <name>${project.groupId}:${project.artifactId}</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
