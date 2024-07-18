@@ -11,32 +11,8 @@
     </parent>
 
     <artifactId>pisces-request-log-starter</artifactId>
-    <name>pisces-request-log-starter</name>
-    <description>请求日志打印</description>
-    <url>https://github.com/yxsnake/pisces</url>
+    <name>${project.groupId}:${project.artifactId}</name>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>https://github.com/yxsnake/pisces/blob/main/LICENSE</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <url>https://github.com/yxsnake/pisces</url>
-        <connection>https://github.com/yxsnake/pisces.git</connection>
-    </scm>
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/yxsnake/pisces/issues</url>
-    </issueManagement>
-    <developers>
-        <developer>
-            <name>snake</name>
-            <email>370696614@qq.com</email>
-            <timezone>+8</timezone>
-        </developer>
-    </developers>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

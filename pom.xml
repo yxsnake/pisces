@@ -8,7 +8,7 @@
     <artifactId>pisces</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
-    <name>pisces</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>pisces是一个基于SpringBoot3.X+JDK21整合封装了日常web开发常用的组件,以starter方式提供使用,主要是为了快速搭建后台web项目，保证统一编码规范。</description>
     <url>https://github.com/yxsnake/pisces</url>
 
@@ -21,7 +21,8 @@
     </licenses>
     <scm>
         <url>https://github.com/yxsnake/pisces</url>
-        <connection>https://github.com/yxsnake/pisces.git</connection>
+        <connection>scm:git:git://github.com/yxsnake/pisces.git</connection>
+        <developerConnection>scm:git:ssh://github.com/yxsnake/pisces.git</developerConnection>
     </scm>
     <issueManagement>
         <system>GitHub Issues</system>
@@ -47,7 +48,6 @@
         <module>pisces-audit-log-starter</module>
         <module>pisces-apollo-starter</module>
         <module>pisces-request-log-starter</module>
-        <module>example-boot</module>
     </modules>
 
     <properties>
@@ -419,17 +419,19 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.2.1</version>
-                <configuration>
-                    <attach>true</attach>
-                </configuration>
+                <inherited>true</inherited>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>jar-no-fork</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludeResources>true</excludeResources>
+                    <useDefaultExcludes>true</useDefaultExcludes>
+                </configuration>
             </plugin>
             <!--   javadoc插件 -->
             <plugin>
@@ -438,12 +440,23 @@
                 <version>3.6.3</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <id>bundle-sources</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <maxmemory>1024</maxmemory>
+                    <encoding>UTF-8</encoding>
+                    <show>protected</show>
+                    <notree>true</notree>
+
+                    <!-- Avoid running into Java 8's very restrictive doclint issues -->
+                    <failOnError>false</failOnError>
+                    <doclint>none</doclint>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -456,7 +469,11 @@
                     <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>
                     <!--  window    -->
                     <!-- <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>  -->
-
+                    <gpgArguments>
+                        <!--表示密码直接输入，不需要弹出密码框-->
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
                 </configuration>
                 <executions>
                     <execution>
@@ -545,6 +562,10 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
                 <version>1.6.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>oss</flattenMode>
+                </configuration>
                 <executions>
                     <execution>
                         <id>flatten</id>
