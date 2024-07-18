@@ -12,9 +12,11 @@
 
     <artifactId>pisces-web-core-starter</artifactId>
     <name>${project.groupId}:${project.artifactId}</name>
+    <description>整合springmvc,封装统一得请求响应，以及异常处理</description>
+    <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-web-core-starter</url>
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>

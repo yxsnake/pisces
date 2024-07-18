@@ -9,7 +9,7 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>pisces是一个基于SpringBoot3.X+JDK21整合封装了日常web开发常用的组件,以starter方式提供使用,主要是为了快速搭建后台web项目，保证统一编码规范。</description>
+    <description>pisces是一个基于SpringBoot3.X+JDK17整合封装了日常web开发常用的组件,以starter方式提供使用,主要是为了快速搭建后台web项目，保证统一编码规范。</description>
     <url>https://github.com/yxsnake/pisces</url>
 
     <licenses>
@@ -51,13 +51,13 @@
     </modules>
 
     <properties>
-        <revision>1.0.0</revision>
+        <revision>1.0.1</revision>
         <spring-boot.version>3.2.2</spring-boot.version>
         <java.version>21</java.version>
 
         <maven.version>3.8.4</maven.version>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <hutool.version>5.8.25</hutool.version>
         <guava.version>33.0.0-jre</guava.version>
@@ -466,9 +466,9 @@
                 <configuration>
                     <keyname>yxsnake</keyname>
                     <!--   mac      -->
-                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>
+<!--                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>-->
                     <!--  window    -->
-                    <!-- <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>  -->
+                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>
                     <gpgArguments>
                         <!--表示密码直接输入，不需要弹出密码框-->
                         <arg>--pinentry-mode</arg>
