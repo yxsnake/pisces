@@ -11,13 +11,14 @@
     </parent>
 
     <artifactId>pisces-apollo-starter</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>${project.artifactId}</name>
     <description>整合携程apollo</description>
     <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-apollo-starter</url>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
 
     <dependencies>
