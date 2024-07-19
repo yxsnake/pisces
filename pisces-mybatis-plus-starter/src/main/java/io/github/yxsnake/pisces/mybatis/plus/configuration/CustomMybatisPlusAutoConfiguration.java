@@ -35,7 +35,7 @@ public class CustomMybatisPlusAutoConfiguration {
     // 配置分页插件
     interceptor.addInnerInterceptor(new PaginationInnerInterceptor());
     // 防全表更新删除操作
-    interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
+//    interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
     // 增加@Version乐观锁支持
     interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
     return interceptor;
