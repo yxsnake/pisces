@@ -1,6 +1,5 @@
 package io.github.yxsnake.pisces.web.core.configuration;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
 import io.github.yxsnake.pisces.web.core.framework.handler.WebHandlerExceptionResolver;
 import io.github.yxsnake.pisces.web.core.framework.handler.WebRequestMappingHandlerMapping;
@@ -11,7 +10,6 @@ import io.undertow.Undertow;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
@@ -36,23 +34,6 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
 
     private final WebCoreProperties webConf;
 
-//  @Resource
-//  ObjectMapper objectMapper;
-
-//  @Override
-//  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//    MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-//    objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<>() {
-//      @Override
-//      public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
-//        gen.writeString("");
-//      }
-//    });
-//    jackson2HttpMessageConverter.setObjectMapper(this.objectMapper);
-//    converters.add(jackson2HttpMessageConverter);
-//    converters.add(new StringHttpMessageConverter(Charsets.UTF_8));
-//  }
-
     @Override
     public Validator getValidator() {
         return new SpringValidatorAdapter(new ValidatorCollectionImpl());
@@ -74,7 +55,17 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new UserContextInterceptor())
                 // 不用拦截的请求
-                .excludePathPatterns("/user/permissions", "/user/roles")
+                .excludePathPatterns(
+                        "/user/permissions",
+                        "/user/roles",
+                        "/login",
+                        "/refresh-token",
+                        "/doc.html",
+                        "/webjars/**",
+                        "/v3/api-docs/**",
+                        "/favicon.ico",
+                        "/swagger-ui/**"
+                )
                 // 拦截的请求
                 .addPathPatterns("/**")
         ;
