@@ -1,5 +1,8 @@
 package io.github.yxsnake.pisces.web.core.configuration;
 
+import cn.hutool.core.collection.CollUtil;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
 import io.github.yxsnake.pisces.web.core.framework.handler.WebHandlerExceptionResolver;
 import io.github.yxsnake.pisces.web.core.framework.handler.WebRequestMappingHandlerMapping;
@@ -26,6 +29,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -53,19 +57,24 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        Set<String> excludePathPatterns = webConf.getExcludePathPatterns();
+        if(CollUtil.isEmpty(excludePathPatterns)){
+           excludePathPatterns = Sets.newHashSet();
+        }
+        excludePathPatterns.add("/user/permissions");
+        excludePathPatterns.add("/user/roles");
+        excludePathPatterns.add("/doc.html");
+        excludePathPatterns.add("/webjars/**");
+        excludePathPatterns.add("/v3/api-docs/*");
+        excludePathPatterns.add("/favicon.ico");
+        excludePathPatterns.add("/swagger-ui/**");
+        List<String> excludePathList = Lists.newArrayList();
+        if(CollUtil.isNotEmpty(excludePathPatterns)){
+            excludePathList.addAll(excludePathPatterns);
+        }
         registry.addInterceptor(new UserContextInterceptor())
                 // 不用拦截的请求
-                .excludePathPatterns(
-                        "/user/permissions",
-                        "/user/roles",
-                        "/login",
-                        "/refresh-token",
-                        "/doc.html",
-                        "/webjars/**",
-                        "/v3/api-docs/**",
-                        "/favicon.ico",
-                        "/swagger-ui/**"
-                )
+                .excludePathPatterns(excludePathList)
                 // 拦截的请求
                 .addPathPatterns("/**")
         ;

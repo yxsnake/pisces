@@ -5,6 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Set;
+
 @Data
 @Component
 @ConfigurationProperties(prefix = "web.core")
@@ -19,5 +22,7 @@ public class WebCoreProperties {
 
   @NestedConfigurationProperty
   private HealthProperties health = new HealthProperties();
+
+  private Set<String> excludePathPatterns;
 
 }
