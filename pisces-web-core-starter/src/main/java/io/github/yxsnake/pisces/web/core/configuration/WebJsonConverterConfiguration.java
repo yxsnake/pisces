@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -36,5 +37,9 @@ public class WebJsonConverterConfiguration implements WebMvcConfigurer {
         objectMapper.registerModule(new JavaTimeModule());
         messageConverter.setObjectMapper(objectMapper);
         converters.add(0, messageConverter);
+        //需要追加byte，否则springdoc-openapi接口会响应Base64编码内容，导致接口文档显示失败
+        // https://github.com/springdoc/springdoc-openapi/issues/2143
+        // 解决方案
+        converters.add(1,new ByteArrayHttpMessageConverter());
     }
 }

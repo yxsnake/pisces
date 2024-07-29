@@ -6,8 +6,20 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "web-core.sagger")
+@ConfigurationProperties(prefix = "web-core.swagger")
 public class SwaggerProperties {
 
     private String url;
+
+    private String title;
+
+    private String author;
+
+    private String email;
+
+    private String description;
+
+    private String version;
+
+
 }

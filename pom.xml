@@ -83,7 +83,7 @@
         <sa-token.version>1.38.0</sa-token.version>
         <forest-spring-boot3-starter.version>1.5.36</forest-spring-boot3-starter.version>
 
-        <springdoc-openapi-starter-webmvc-ui.version>2.3.0</springdoc-openapi-starter-webmvc-ui.version>
+        <knife4j-openapi3-jakarta-spring-boot-starter.version>4.5.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
 
         <minio.version>8.5.10</minio.version>
         <commons-fileupload2-javax.version>2.0.0-M2</commons-fileupload2-javax.version>
@@ -326,11 +326,10 @@
                 <artifactId>forest-spring-boot3-starter</artifactId>
                 <version>${forest-spring-boot3-starter.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc-openapi-starter-webmvc-ui.version}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j-openapi3-jakarta-spring-boot-starter.version}</version>
             </dependency>
 
 
@@ -440,32 +439,32 @@
                     <useDefaultExcludes>true</useDefaultExcludes>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    <keyname>yxsnake</keyname>
-                    <!--   mac      -->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-gpg-plugin</artifactId>-->
+<!--                <version>1.5</version>-->
+<!--                <configuration>-->
+<!--                    <keyname>yxsnake</keyname>-->
+<!--                    &lt;!&ndash;   mac      &ndash;&gt;-->
 <!--                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>-->
-                    <!--  window    -->
-                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>
-                    <gpgArguments>
-                        <!--表示密码直接输入，不需要弹出密码框-->
-                        <arg>--pinentry-mode</arg>
-                        <arg>loopback</arg>
-                    </gpgArguments>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+<!--                    &lt;!&ndash;  window    &ndash;&gt;-->
+<!--&lt;!&ndash;                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>&ndash;&gt;-->
+<!--                    <gpgArguments>-->
+<!--                        &lt;!&ndash;表示密码直接输入，不需要弹出密码框&ndash;&gt;-->
+<!--                        <arg>&#45;&#45;pinentry-mode</arg>-->
+<!--                        <arg>loopback</arg>-->
+<!--                    </gpgArguments>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>sign-artifacts</id>-->
+<!--                        <phase>verify</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>sign</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
 
             <plugin>

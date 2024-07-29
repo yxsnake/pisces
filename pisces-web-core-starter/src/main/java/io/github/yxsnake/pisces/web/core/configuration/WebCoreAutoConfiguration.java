@@ -71,8 +71,6 @@ public class WebCoreAutoConfiguration {
 
   private final WebCoreProperties webCore;
 
-  private final SwaggerUiConfigProperties swaggerUiConfigProperties;
-
   private final SwaggerProperties swagger;
 
   @PostConstruct
@@ -87,8 +85,6 @@ public class WebCoreAutoConfiguration {
     log.info("    |-enabled: {}", health.getEnabled());
     log.info("    |-path: {}", health.getPath());
     log.info("  |-Swagger");
-    log.info("    |-enabled: {}", swaggerUiConfigProperties.isEnabled());
-    log.info("    |-path: {}", swaggerUiConfigProperties.getPath());
     log.info("    |-url: {}", swagger.getUrl());
     log.info("-------------------------------------------------------------");
   }
