@@ -8,7 +8,7 @@ import java.util.Objects;
 
 
 @Data
-@Schema(description = "查询请求参数")
+@Schema(name = "查询请求参数")
 public class QueryFilter<T,R> {
 
   @Schema(description = "当前页码(默认第1页)",requiredMode = Schema.RequiredMode.NOT_REQUIRED,format = "int64",example = "1")
@@ -23,10 +23,10 @@ public class QueryFilter<T,R> {
   @Schema(description = "排序方式(为空时默认为升序，0：升序，1:降序)",requiredMode = Schema.RequiredMode.NOT_REQUIRED,format = "int32",example = "1")
   private Integer sortType = 1;
 
-  @Schema(description = "等值查询(直接性查询条件对象(T是一个 Bean 对象，可以根据对象的属性作为=条件查询)",requiredMode = Schema.RequiredMode.NOT_REQUIRED,format = "object",example = "")
+  @Schema(description = "等值查询(直接性查询条件对象(T是一个 Bean 对象，可以根据对象的属性作为=条件查询)",requiredMode = Schema.RequiredMode.REQUIRED,format = "object",example = "")
   private T equalsQueries;
 
-  @Schema(description = "模糊查询条件对象(R只是一个Bean,可以根据对象的属性作为模糊查询条件)",requiredMode = Schema.RequiredMode.NOT_REQUIRED,format = "object",example = "")
+  @Schema(description = "模糊查询条件对象(R只是一个Bean,可以根据对象的属性作为模糊查询条件)",requiredMode = Schema.RequiredMode.REQUIRED,format = "object",example = "")
   private R fuzzyQueries;
 
   public QueryFilter(){
