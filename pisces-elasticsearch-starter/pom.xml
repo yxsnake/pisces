@@ -11,11 +11,15 @@
     </parent>
 
     <artifactId>pisces-elasticsearch-starter</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>${project.artifactId}</name>
+    <description>整合elasticsearch,提供rest 客户端自动注入</description>
+    <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-elasticsearch-starter</url>
+
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
     <dependencies>
         <dependency>

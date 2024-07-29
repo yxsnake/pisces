@@ -11,7 +11,9 @@
     </parent>
 
     <artifactId>pisces-xxl-job-starter</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
+    <name>${project.artifactId}</name>
+    <description>整合xxl-job,快速接入分布式调度</description>
+    <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-xxl-job-starter</url>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>

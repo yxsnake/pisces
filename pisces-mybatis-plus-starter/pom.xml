@@ -11,13 +11,15 @@
     </parent>
 
     <artifactId>pisces-mybatis-plus-starter</artifactId>
-    <name>${project.groupId}:${project.artifactId}</name>
-
+    <name>${project.artifactId}</name>
+    <description>整合mybatis-plus,集成sql日志,租户隔离等功能</description>
+    <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-mybatis-plus-starter</url>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     </properties>
 
     <dependencies>
@@ -40,8 +42,8 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
         <!-- mybatis plus -->
         <dependency>
