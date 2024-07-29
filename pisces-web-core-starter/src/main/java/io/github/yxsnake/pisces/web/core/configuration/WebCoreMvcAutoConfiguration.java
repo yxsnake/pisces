@@ -46,8 +46,6 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
 
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    // 解决 openapi返回base64问题
-    converters.add(new ByteArrayHttpMessageConverter());
     MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
     objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<>() {
       @Override
@@ -58,6 +56,8 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
     jackson2HttpMessageConverter.setObjectMapper(this.objectMapper);
     converters.add(jackson2HttpMessageConverter);
     converters.add(new StringHttpMessageConverter(Charsets.UTF_8));
+    // 解决 openapi返回base64问题
+    converters.add(new ByteArrayHttpMessageConverter());
   }
 
   @Override
