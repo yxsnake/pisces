@@ -2,7 +2,7 @@ package io.github.yxsnake.pisces.mybatis.plus.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.plugins.handler.TenantLineHandler;
-import io.github.yxsnake.pisces.mybatis.plus.configuration.properties.TenantProperties;
+import io.github.yxsnake.pisces.mybatis.plus.configuration.properties.MybatisPlusExtProperties;
 import io.github.yxsnake.pisces.mybatis.plus.context.TenantIgnoreContext;
 import lombok.AllArgsConstructor;
 import io.github.yxsnake.pisces.web.core.context.UserContext;
@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomTenantHandler implements TenantLineHandler {
 
-  private final TenantProperties tenantProperties;
+  private final MybatisPlusExtProperties mybatisPlusExtProperties;
 
   @Override
   public Expression getTenantId() {
@@ -36,7 +36,7 @@ public class CustomTenantHandler implements TenantLineHandler {
       TenantIgnoreContext.remove();
       return true;
     }else{
-      List<String> ignoreTables = tenantProperties.getIgnoreTables();
+      List<String> ignoreTables = mybatisPlusExtProperties.getIgnoreTables();
       if(CollUtil.isNotEmpty(ignoreTables)){
         return ignoreTables.contains(tableName);
       }
