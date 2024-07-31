@@ -5,6 +5,7 @@ import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
@@ -21,9 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
@@ -102,16 +107,26 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
         return new WebRequestMappingHandlerMapping(webConf.getVersion());
     }
 
-    @Bean
-    public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
-        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        converters.add(new ByteArrayHttpMessageConverter());
+        ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
+        //序列化的时候序列对象的所有属性
+        objectMapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
+
+        //反序列化的时候如果多了其他属性,不抛出异常
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        //如果是空对象的时候,不抛异常
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+        //取消时间的转化格式,默认是时间戳,可以取消,同时需要设置要表现的时间格式
+        objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         DateFormat dateFormat = new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
         objectMapper.setDateFormat(dateFormat);
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // 忽略未知的字段
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
-        mappingJackson2HttpMessageConverter.setObjectMapper(objectMapper);
-        return mappingJackson2HttpMessageConverter;
+
+        //添加此配置
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
     }
 }
