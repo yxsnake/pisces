@@ -102,6 +102,7 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
         return new WebRequestMappingHandlerMapping(webConf.getVersion());
     }
 
+    @Bean
     public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
