@@ -1,6 +1,10 @@
 package io.github.yxsnake.pisces.web.core.configuration;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DatePattern;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
@@ -20,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -28,6 +33,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -95,4 +102,15 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
         return new WebRequestMappingHandlerMapping(webConf.getVersion());
     }
 
+    public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        ObjectMapper objectMapper = new ObjectMapper();
+        DateFormat dateFormat = new SimpleDateFormat(DatePattern.NORM_DATETIME_PATTERN);
+        objectMapper.setDateFormat(dateFormat);
+        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        // 忽略未知的字段
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+        mappingJackson2HttpMessageConverter.setObjectMapper(objectMapper);
+        return mappingJackson2HttpMessageConverter;
+    }
 }
