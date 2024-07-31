@@ -446,9 +446,9 @@
                 <configuration>
                     <keyname>yxsnake</keyname>
                     <!--   mac      -->
-<!--                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>-->
+                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>
                     <!--  window    -->
-                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>
+<!--                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>-->
                     <gpgArguments>
                         <!--表示密码直接输入，不需要弹出密码框-->
                         <arg>--pinentry-mode</arg>
