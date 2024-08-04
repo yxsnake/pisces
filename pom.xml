@@ -51,7 +51,7 @@
     </modules>
 
     <properties>
-        <revision>1.0.3</revision>
+        <revision>1.0.4</revision>
         <spring-boot.version>3.3.2</spring-boot.version>
         <java.version>21</java.version>
 
@@ -446,9 +446,9 @@
                 <configuration>
                     <keyname>yxsnake</keyname>
                     <!--   mac      -->
-                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>
+<!--                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>-->
                     <!--  window    -->
-<!--                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>-->
+                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>
                     <gpgArguments>
                         <!--表示密码直接输入，不需要弹出密码框-->
                         <arg>--pinentry-mode</arg>
