@@ -443,11 +443,11 @@
 <!--                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>-->
                     <!--  window    -->
                      <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>
-                    <gpgArguments>
-                        <!--表示密码直接输入，不需要弹出密码框-->
-                        <arg>--pinentry-mode</arg>
-                        <arg>loopback</arg>
-                    </gpgArguments>
+<!--                    <gpgArguments>-->
+<!--                        &lt;!&ndash;表示密码直接输入，不需要弹出密码框&ndash;&gt;-->
+<!--                        <arg>&#45;&#45;pinentry-mode</arg>-->
+<!--                        <arg>loopback</arg>-->
+<!--                    </gpgArguments>-->
                 </configuration>
                 <executions>
                     <execution>
