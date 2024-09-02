@@ -12,7 +12,8 @@
 
     <groupId>io.github.yxsnake</groupId>
     <artifactId>pisces-distributed-lock-starter</artifactId>
-
+    <description>基于redis整合redisson的分布式锁</description>
+    <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-distributed-lock-starter</url>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
