@@ -15,8 +15,8 @@
     <description>整合minio,提供文件上传下载接口</description>
     <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-file-starter</url>
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>

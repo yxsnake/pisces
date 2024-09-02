@@ -1,12 +1,12 @@
 package io.github.yxsnake.pisces.web.core.converter;
 
-import cn.hutool.core.bean.BeanUtil;
+import io.github.yxsnake.pisces.web.core.utils.JsonUtils;
 
 public class BeanUtilConverter {
 
   public static <T> T convert(Class<T> targetClass, Object source) {
-    T bean = BeanUtil.toBean(source, targetClass);
-    return bean;
+    String strJson = JsonUtils.objectCovertToJson(source);
+    return JsonUtils.jsonCovertToObject(strJson,targetClass);
   }
 
 }

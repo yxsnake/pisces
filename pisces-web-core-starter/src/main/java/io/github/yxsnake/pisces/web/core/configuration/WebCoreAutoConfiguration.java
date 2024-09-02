@@ -21,6 +21,7 @@ import com.google.common.base.Preconditions;
 import io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties;
 import io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
+import io.github.yxsnake.pisces.web.core.framework.filter.RequestLogFilter;
 import io.github.yxsnake.pisces.web.core.framework.filter.XssFilter;
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Validation;
@@ -99,6 +100,14 @@ public class WebCoreAutoConfiguration {
   public FilterRegistrationBean<XssFilter> xssFilterRegistrationBean() {
     FilterRegistrationBean<XssFilter> registrationBean = new FilterRegistrationBean<>();
     registrationBean.setFilter(new XssFilter());
+    registrationBean.addUrlPatterns("/*");
+    return registrationBean;
+  }
+
+  @Bean
+  public FilterRegistrationBean<RequestLogFilter> requestLogFilterRegistrationBean() {
+    FilterRegistrationBean<RequestLogFilter> registrationBean = new FilterRegistrationBean<>();
+    registrationBean.setFilter(new RequestLogFilter());
     registrationBean.addUrlPatterns("/*");
     return registrationBean;
   }

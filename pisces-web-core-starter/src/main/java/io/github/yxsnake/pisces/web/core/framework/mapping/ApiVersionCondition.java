@@ -44,7 +44,6 @@ public class ApiVersionCondition implements RequestCondition<ApiVersionCondition
     Matcher m = VERSION_PREFIX_PATTERN.matcher(request.getRequestURI());
     if (m.find()) {
       // 获得符合匹配条件的ApiVersionCondition
-      System.out.println("groupCount:"+m.groupCount());
       double version = Double.valueOf(m.group(1));
       if (version >= getApiVersion().version()) {
         return this;

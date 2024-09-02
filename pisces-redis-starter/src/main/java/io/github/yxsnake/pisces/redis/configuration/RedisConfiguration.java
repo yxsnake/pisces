@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.yxsnake.pisces.redis.configuration.properties.CustomRedisProperties;
 import io.github.yxsnake.pisces.redis.common.RedisConstants;
 import io.github.yxsnake.pisces.redis.serializer.StringRedisSerializer;
-import io.github.yxsnake.pisces.redis.service.BusinessSnGeneratorService;
 import io.github.yxsnake.pisces.redis.service.RedisGeoService;
 import com.google.common.base.Preconditions;
+import io.github.yxsnake.pisces.redis.service.SerialNumberGeneratorService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-@Import({RedissonConfiguration.class, CustomRedisProperties.class})
+@Import({CustomRedisProperties.class})
 @AutoConfigureBefore(RedisAutoConfiguration.class)
 public class RedisConfiguration {
 
@@ -119,7 +119,7 @@ public class RedisConfiguration {
   }
 
   @Bean
-  public BusinessSnGeneratorService businessSnGeneratorService(){
-    return new BusinessSnGeneratorService(redisTemplate);
+  public SerialNumberGeneratorService serialNumberGeneratorService(){
+    return new SerialNumberGeneratorService(redisTemplate);
   }
 }
