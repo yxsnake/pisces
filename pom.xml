@@ -102,6 +102,8 @@
         <xxl-job-core.version>2.4.1</xxl-job-core.version>
         <undertow-core.version>2.3.15.Final</undertow-core.version>
 
+        <bcprov-jdk18on.version>1.78.1</bcprov-jdk18on.version>
+
     </properties>
 
 
@@ -396,6 +398,11 @@
                 <groupId>io.undertow</groupId>
                 <artifactId>undertow-core</artifactId>
                 <version>${undertow-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk18on</artifactId>
+                <version>${bcprov-jdk18on.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
