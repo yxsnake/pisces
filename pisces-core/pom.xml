@@ -12,7 +12,7 @@
 
     <artifactId>pisces-core</artifactId>
     <name>${project.artifactId}</name>
-    <description>封装基础工具，统一接口响应规范</description>
+    <description>封装基础工具，统一接口响应规范,业务断言,国密工具,对象转换</description>
     <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-core</url>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

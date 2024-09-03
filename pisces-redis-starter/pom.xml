@@ -12,7 +12,7 @@
 
     <artifactId>pisces-redis-starter</artifactId>
     <name>${project.artifactId}</name>
-    <description>整合redis,提供分布式锁，以及经纬度计算</description>
+    <description>整合redis,提供发号器，以及经纬度计算</description>
     <url>https://github.com/yxsnake/pisces/tree/${revision}/pisces-redis-starter</url>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
