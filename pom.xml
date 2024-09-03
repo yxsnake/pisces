@@ -50,7 +50,7 @@
     </modules>
 
     <properties>
-        <revision>2.0.0</revision>
+        <revision>2.0.1</revision>
         <spring-boot.version>3.3.2</spring-boot.version>
         <java.version>17</java.version>
 
