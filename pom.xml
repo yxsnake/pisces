@@ -50,7 +50,7 @@
     </modules>
 
     <properties>
-        <revision>2.0.1</revision>
+        <revision>2.0.2</revision>
         <spring-boot.version>3.3.2</spring-boot.version>
         <java.version>17</java.version>
 
@@ -410,42 +410,37 @@
     <build>
         <plugins>
             <!--   central发布插件    -->
-<!--            <plugin>-->
-<!--                <groupId>org.sonatype.central</groupId>-->
-<!--                <artifactId>central-publishing-maven-plugin</artifactId>-->
-<!--                <version>0.4.0</version>-->
-<!--                <extensions>true</extensions>-->
-<!--                <configuration>-->
-<!--                    <publishingServerId>yxsnake</publishingServerId>-->
-<!--                    <tokenAuth>true</tokenAuth>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                <version>1.5</version>-->
-<!--                <configuration>-->
-<!--                    <keyname>yxsnake</keyname>-->
-<!--                    &lt;!&ndash;   mac      &ndash;&gt;-->
-<!--&lt;!&ndash;                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>&ndash;&gt;-->
-<!--                    &lt;!&ndash;  window    &ndash;&gt;-->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.4.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>yxsnake</publishingServerId>
+                    <tokenAuth>true</tokenAuth>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <keyname>yxsnake</keyname>
+                    <!--   mac      -->
+                    <executable>/usr/local/gnupg-2.4/bin/gpg2</executable>
+                    <!--  window    -->
 <!--                     <executable>C:\Program Files (x86)\GnuPG\bin\gpg.exe</executable>-->
-<!--&lt;!&ndash;                    <gpgArguments>&ndash;&gt;-->
-<!--&lt;!&ndash;                        &lt;!&ndash;表示密码直接输入，不需要弹出密码框&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                        <arg>&#45;&#45;pinentry-mode</arg>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <arg>loopback</arg>&ndash;&gt;-->
-<!--&lt;!&ndash;                    </gpgArguments>&ndash;&gt;-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>sign-artifacts</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>sign</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!--   source源码插件 -->
             <!-- Source -->
             <plugin>
