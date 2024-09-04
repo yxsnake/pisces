@@ -19,6 +19,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import com.google.common.base.Preconditions;
 import io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties;
+import io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties;
 import io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
 import io.github.yxsnake.pisces.web.core.framework.filter.RequestLogFilter;
@@ -57,7 +58,7 @@ import java.util.Objects;
 @SuppressWarnings("unchecked")
 @Slf4j
 @AllArgsConstructor
-@Import({HealthProperties.class, WebCoreProperties.class, SwaggerProperties.class})
+@Import({HealthProperties.class, WebCoreProperties.class, SwaggerProperties.class, RequestLogProperties.class})
 @Configuration
 public class WebCoreAutoConfiguration {
 
@@ -73,6 +74,8 @@ public class WebCoreAutoConfiguration {
   private final WebCoreProperties webCore;
 
   private final SwaggerProperties swagger;
+
+  private final RequestLogProperties requestLog;
 
   @PostConstruct
   public void init() {
@@ -107,7 +110,7 @@ public class WebCoreAutoConfiguration {
   @Bean
   public FilterRegistrationBean<RequestLogFilter> requestLogFilterRegistrationBean() {
     FilterRegistrationBean<RequestLogFilter> registrationBean = new FilterRegistrationBean<>();
-    registrationBean.setFilter(new RequestLogFilter());
+    registrationBean.setFilter(new RequestLogFilter(requestLog));
     registrationBean.addUrlPatterns("/*");
     return registrationBean;
   }

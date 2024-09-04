@@ -23,6 +23,10 @@ public class WebCoreProperties {
   @NestedConfigurationProperty
   private HealthProperties health = new HealthProperties();
 
+
+  @NestedConfigurationProperty
+  private RequestLogProperties log = new RequestLogProperties();
+
   private Set<String> excludePathPatterns;
 
 }
