@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
 import io.github.yxsnake.pisces.web.core.framework.handler.WebHandlerExceptionResolver;
-import io.github.yxsnake.pisces.web.core.framework.handler.WebRequestMappingHandlerMapping;
 import io.github.yxsnake.pisces.web.core.handler.UserContextInterceptor;
 import io.github.yxsnake.pisces.web.core.spring.validator.ValidatorCollectionImpl;
 import io.github.yxsnake.pisces.web.core.undertow.UndertowServerFactoryCustomizer;
@@ -22,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -36,7 +34,6 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -102,10 +99,6 @@ public class WebCoreMvcAutoConfiguration implements WebMvcConfigurer, WebMvcRegi
         }).addPathPatterns("/**");
     }
 
-    @Override
-    public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
-        return new WebRequestMappingHandlerMapping(webConf.getVersion());
-    }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

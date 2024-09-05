@@ -5,17 +5,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * 版本配置
- *
- * @author snake
- **/
+ * @author: snake
+ * @create-time: 2024-09-05
+ * @description:
+ * @version: 1.0
+ */
 @Data
 @Component
-@ConfigurationProperties(prefix = "web-core.version")
-public class VersionProperties {
+@ConfigurationProperties(prefix = "web-core.xss")
+public class XssProperties {
 
-  /**
-   * 是否开启, 默认true
-   */
-  private boolean enabled = true;
+    private Boolean enabled = true;
 }

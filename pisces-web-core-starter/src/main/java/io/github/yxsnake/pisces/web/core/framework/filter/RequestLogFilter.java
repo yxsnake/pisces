@@ -66,32 +66,36 @@ public class RequestLogFilter  extends OncePerRequestFilter {
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Date requestDate = new Date();
-        boolean isFirstRequest = !isAsyncDispatch(request);
+        if(!requestLogProperties.isEnabled()){
+            filterChain.doFilter(request,response);
+        }else{
+            Date requestDate = new Date();
+            boolean isFirstRequest = !isAsyncDispatch(request);
 
-        //包装缓存requestBody信息
-        HttpServletRequest requestToUse = request;
-        if (requestLogProperties.isNeedLogPayload() && isFirstRequest && !(request instanceof ContentCachingRequestWrapper)) {
-            requestToUse = new ContentCachingRequestWrapper(request, requestLogProperties.getMaxPayloadLength());
-        }
-
-        //包装缓存responseBody信息
-        HttpServletResponse responseToUse = response;
-        if (requestLogProperties.isNeedLogPayload() && !(response instanceof ContentCachingResponseWrapper)) {
-            responseToUse = new ContentCachingResponseWrapper(response);
-        }
-        try {
-            filterChain.doFilter(request, response);
-        } finally {
-            //记录请求日志
-            if (requestLogProperties.isNeedLogRequest()) {
-                logRequest(requestToUse,requestDate);
+            //包装缓存requestBody信息
+            HttpServletRequest requestToUse = request;
+            if (requestLogProperties.getNeedLogPayload() && isFirstRequest && !(request instanceof ContentCachingRequestWrapper)) {
+                requestToUse = new ContentCachingRequestWrapper(request, requestLogProperties.getMaxPayloadLength());
             }
-            //记录响应日志
-            if (requestLogProperties.isNeedLogResponse()) {
-                logResponse(responseToUse);
-                //把从response中读取过的内容重新放回response，否则客户端获取不到返回的数据
-                resetResponse(responseToUse);
+
+            //包装缓存responseBody信息
+            HttpServletResponse responseToUse = response;
+            if (requestLogProperties.getNeedLogPayload() && !(response instanceof ContentCachingResponseWrapper)) {
+                responseToUse = new ContentCachingResponseWrapper(response);
+            }
+            try {
+                filterChain.doFilter(request, response);
+            } finally {
+                //记录请求日志
+                if (requestLogProperties.getNeedLogRequest()) {
+                    logRequest(requestToUse,requestDate);
+                }
+                //记录响应日志
+                if (requestLogProperties.getNeedLogResponse()) {
+                    logResponse(responseToUse);
+                    //把从response中读取过的内容重新放回response，否则客户端获取不到返回的数据
+                    resetResponse(responseToUse);
+                }
             }
         }
     }
@@ -104,7 +108,7 @@ public class RequestLogFilter  extends OncePerRequestFilter {
      * @date
      */
     protected void logRequest(HttpServletRequest request, Date requestDate) throws IOException {
-        String payload = requestLogProperties.isNeedLogPayload() ? getRequestPayload(request) : "";
+        String payload = requestLogProperties.getNeedLogPayload() ? getRequestPayload(request) : "";
         logger.info(createRequestMessage(request, payload,requestDate));
     }
 
@@ -113,7 +117,7 @@ public class RequestLogFilter  extends OncePerRequestFilter {
      * @param response
      */
     protected void logResponse(HttpServletResponse response) {
-        String payload = requestLogProperties.isNeedLogPayload() ? getResponsePayload(response) : "";
+        String payload = requestLogProperties.getNeedLogResponse() ? getResponsePayload(response) : "";
         logger.info(createResponseMessage(response, payload, new Date()));
     }
 
@@ -134,7 +138,7 @@ public class RequestLogFilter  extends OncePerRequestFilter {
      * @param request
      * @return
      */
-    protected String getRequestPayload(HttpServletRequest request) throws IOException {
+    protected String getRequestPayload(HttpServletRequest request) {
         String payload = "";
         ContentCachingRequestWrapper wrapper =
                 WebUtils.getNativeRequest(request, ContentCachingRequestWrapper.class);
@@ -176,10 +180,10 @@ public class RequestLogFilter  extends OncePerRequestFilter {
         msg.append("RequestDate: ").append(DateUtil.format(requestDate, DatePattern.NORM_DATETIME_PATTERN)).append("\n");
         msg.append("Encoding: ").append(request.getCharacterEncoding()).append("\n");
         msg.append("Content-Type: ").append(request.getContentType()).append("\n");
-        if (requestLogProperties.isNeedLogHeader()) {
+        if (requestLogProperties.getNeedLogHeader()) {
             msg.append("Headers: ").append(new ServletServerHttpRequest(request).getHeaders()).append("\n");
         }
-        if (requestLogProperties.isNeedLogPayload()) {
+        if (requestLogProperties.getNeedLogPayload()) {
             int length = Math.min(payload.length(), requestLogProperties.getMaxPayloadLength());
             msg.append("Payload: ").append(payload.substring(0, length)).append("\n");
         }
@@ -200,7 +204,7 @@ public class RequestLogFilter  extends OncePerRequestFilter {
         msg.append("ResponseDate: ").append(DateUtil.format(responseDate, DatePattern.NORM_DATETIME_PATTERN)).append("\n");
         msg.append("Encoding: ").append(response.getCharacterEncoding()).append("\n");
         msg.append("Content-Type: ").append(response.getContentType()).append("\n");
-        if (requestLogProperties.isNeedLogHeader()) {
+        if (requestLogProperties.getNeedLogHeader()) {
             msg.append("Headers: ").append(new ServletServerHttpResponse(response).getHeaders()).append("\n");
         }
         boolean needLogContentType = true;
@@ -211,7 +215,7 @@ public class RequestLogFilter  extends OncePerRequestFilter {
 //        }
         //是JSON格式的才输出
         needLogContentType = StrUtil.isEmpty(contentType) || contentType.toUpperCase().contains("JSON") || contentType.contains("text");
-        if (requestLogProperties.isNeedLogPayload() && needLogContentType) {
+        if (requestLogProperties.getNeedLogPayload() && needLogContentType) {
             int length = Math.min(payload.length(), requestLogProperties.getMaxPayloadLength());
             msg.append("Payload: ").append(payload.substring(0, length)).append("\n");
         }

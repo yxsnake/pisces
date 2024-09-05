@@ -12,33 +12,35 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "web-core.request-log")
+@ConfigurationProperties(prefix = "web-core.log")
 public class RequestLogProperties {
+
+    private boolean enabled = true;
 
     /**
      * 是否记录请求日志
      */
-    private boolean needLogRequest = true;
+    private Boolean needLogRequest = true;
 
     /**
      * 是否记录响应日志
      */
-    private boolean needLogResponse = true;
+    private Boolean needLogResponse = true;
 
     /**
      * 是否记录header
      */
-    private boolean needLogHeader = true;
+    private Boolean needLogHeader = true;
 
     /**
      * 是否记录参数
      */
-    private boolean needLogPayload = true;
+    private Boolean needLogPayload = true;
 
     /**
      * 记录的最大payload大小
      */
-    private int maxPayloadLength = 2*1024*1024;
+    private Integer maxPayloadLength = 2*1024*1024;
 
 
 }

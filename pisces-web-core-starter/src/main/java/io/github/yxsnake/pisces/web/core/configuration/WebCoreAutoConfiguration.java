@@ -17,11 +17,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.google.common.base.Preconditions;
-import io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties;
-import io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties;
-import io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties;
-import io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties;
+import io.github.yxsnake.pisces.web.core.configuration.properties.*;
 import io.github.yxsnake.pisces.web.core.framework.filter.RequestLogFilter;
 import io.github.yxsnake.pisces.web.core.framework.filter.XssFilter;
 import jakarta.annotation.PostConstruct;
@@ -31,7 +27,6 @@ import jakarta.validation.ValidatorFactory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidator;
-import org.springdoc.core.properties.SwaggerUiConfigProperties;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -39,6 +34,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.beanvalidation.SpringConstraintValidatorFactory;
 
@@ -48,7 +44,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 /**
  * @author snake
@@ -58,7 +53,13 @@ import java.util.Objects;
 @SuppressWarnings("unchecked")
 @Slf4j
 @AllArgsConstructor
-@Import({HealthProperties.class, WebCoreProperties.class, SwaggerProperties.class, RequestLogProperties.class})
+@Import({
+        HealthProperties.class,
+        WebCoreProperties.class,
+        SwaggerProperties.class,
+        RequestLogProperties.class,
+        XssProperties.class
+})
 @Configuration
 public class WebCoreAutoConfiguration {
 
@@ -77,20 +78,38 @@ public class WebCoreAutoConfiguration {
 
   private final RequestLogProperties requestLog;
 
+  private final XssProperties xssProperties;
+
+  private final Environment environment;
+
   @PostConstruct
   public void init() {
-    this.validRequiredParams();
     log.info("------------ Web-core-starter StartUp Information -----------");
     log.info("web-core-starter");
     log.info("  |-Core");
-    log.info("    |-applicationName: {}",webCore.getApplicationName());
-    log.info("    |-serverPort: {}",webCore.getServerPort());
+    log.info("    |-applicationName: {}",getApplicationName(environment));
+    log.info("    |-serverPort: {}",getServerPort(environment));
     log.info("  |-Health");
     log.info("    |-enabled: {}", health.getEnabled());
     log.info("    |-path: {}", health.getPath());
     log.info("  |-Swagger");
-    log.info("    |-url: {}", swagger.getUrl());
+    log.info("    |-enabled: {}", swagger.getEnabled());
+    log.info("  |-RequestLog");
+    log.info("    |-needLogRequest: {}", requestLog.getNeedLogRequest());
+    log.info("    |-needLogResponse: {}", requestLog.getNeedLogResponse());
+    log.info("    |-needLogHeader: {}", requestLog.getNeedLogHeader());
+    log.info("    |-needLogPayload: {}", requestLog.getNeedLogPayload());
+    log.info("  |-Xss");
+    log.info("    |-enabled: {}", xssProperties.getEnabled());
     log.info("-------------------------------------------------------------");
+  }
+
+  private String getApplicationName(Environment environment){
+    return environment.getProperty("spring.application.name");
+  }
+
+  private String getServerPort(Environment environment){
+    return environment.getProperty("server.port");
   }
 
   @Bean
@@ -102,7 +121,7 @@ public class WebCoreAutoConfiguration {
   @Bean
   public FilterRegistrationBean<XssFilter> xssFilterRegistrationBean() {
     FilterRegistrationBean<XssFilter> registrationBean = new FilterRegistrationBean<>();
-    registrationBean.setFilter(new XssFilter());
+    registrationBean.setFilter(new XssFilter(xssProperties));
     registrationBean.addUrlPatterns("/*");
     return registrationBean;
   }
@@ -165,12 +184,6 @@ public class WebCoreAutoConfiguration {
       .buildValidatorFactory();
 
     return validatorFactory.getValidator();
-  }
-
-  private void validRequiredParams(){
-    Preconditions.checkArgument(Objects.nonNull(webCore.getApplicationName()), "Missing required configuration items: web.core.application-name");
-    Preconditions.checkArgument(Objects.nonNull(webCore.getServerPort()), "Missing required configuration items: web.core.server-port");
-
   }
 
   private String getShowText(String text) {

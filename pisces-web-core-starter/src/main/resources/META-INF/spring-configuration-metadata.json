@@ -1,0 +1,138 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties",
+      "name": "web-core",
+      "type": "io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties",
+      "name": "web-core.swagger",
+      "type": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties",
+      "name": "web-core.health",
+      "type": "io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties",
+      "name": "web-core.log",
+      "type": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.XssProperties",
+      "name": "web-core.xss",
+      "type": "io.github.yxsnake.pisces.web.core.configuration.properties.XssProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties",
+      "defaultValue": true,
+      "name": "web-core.enabled",
+      "description": "是否开启",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "defaultValue": true,
+      "name": "web-core.swagger.enabled",
+      "description": "是否开启",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "name": "web-core.swagger.title",
+      "description": "标题",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "name": "web-core.swagger.url",
+      "description": "文档地址",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "name": "web-core.swagger.description",
+      "description": "文档描述",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "name": "web-core.swagger.version",
+      "description": "版本",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "name": "web-core.swagger.email",
+      "description": "邮箱",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.SwaggerProperties",
+      "name": "web-core.swagger.author",
+      "description": "作者",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties",
+      "defaultValue": true,
+      "name": "web-core.health.enabled",
+      "description": "是否开启, 默认true",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.HealthProperties",
+      "defaultValue": "/health",
+      "name": "web-core.health.path",
+      "description": "路径",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties",
+      "defaultValue": true,
+      "name": "web-core.log.enabled",
+      "description": "是否开启日志打印, 默认true",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties",
+      "defaultValue": true,
+      "name": "web-core.log.need-log-request",
+      "description": "是否记录请求日志",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties",
+      "defaultValue": true,
+      "name": "web-core.log.need-log-response",
+      "description": "是否记录响应日志",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties",
+      "defaultValue": true,
+      "name": "web-core.log.need-log-header",
+      "description": "是否记录header",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.RequestLogProperties",
+      "defaultValue": true,
+      "name": "web-core.log.need-log-payload",
+      "description": "是否记录参数",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.web.core.configuration.properties.XssProperties",
+      "defaultValue": true,
+      "name": "web-core.xss.enabled",
+      "description": "是否开启",
+      "type": "java.lang.Boolean"
+    }
+  ]
+}
