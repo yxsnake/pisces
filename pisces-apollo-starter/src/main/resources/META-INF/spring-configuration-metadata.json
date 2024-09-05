@@ -1,0 +1,76 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "java.lang.String",
+      "name": "app.id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "name": "apollo.meta",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "name": "apollo.cacheDir",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "name": "apollo.bootstrap.enabled",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "name": "apollo.bootstrap.eagerLoad.enabled",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "name": "apollo.bootstrap.namespaces",
+      "type": "java.lang.String"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "java.lang.String",
+      "description": "应用名称(需要和apollo控制台对应)",
+      "name": "app.id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "defaultValue": "http://127.0.0.1:18080",
+      "description": "连接地址",
+      "name": "apollo.meta",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "defaultValue": "/opt/data",
+      "name": "apollo.cacheDir",
+      "description": "配置文件本地缓存目录",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "defaultValue": true,
+      "name": "apollo.bootstrap.enabled",
+      "description": "在应用启动阶段，向Spring容器注入被托管的",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "defaultValue": true,
+      "description": "将Apollo配置加载提到初始化日志系统之前",
+      "name": "apollo.bootstrap.eagerLoad.enabled",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "java.lang.String",
+      "name": "apollo.bootstrap.namespaces",
+      "type": "java.lang.String"
+    }
+  ]
+}

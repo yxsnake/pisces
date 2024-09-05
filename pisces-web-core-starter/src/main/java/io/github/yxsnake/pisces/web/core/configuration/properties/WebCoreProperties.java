@@ -10,19 +10,19 @@ import java.util.Set;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "web.core")
+@ConfigurationProperties(prefix = "web-core")
 public class WebCoreProperties {
 
-  private String applicationName;
-
-  private Integer serverPort;
-
   @NestedConfigurationProperty
-  private VersionProperties version = new VersionProperties();
+  private SwaggerProperties swagger;
 
   @NestedConfigurationProperty
   private HealthProperties health = new HealthProperties();
 
+  @NestedConfigurationProperty
+  private RequestLogProperties log = new RequestLogProperties();
+
   private Set<String> excludePathPatterns;
+
 
 }

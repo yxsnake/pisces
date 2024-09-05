@@ -1,0 +1,49 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "name": "minio",
+      "type": "io.github.yxsnake.pisces.web.core.configuration.properties.WebCoreProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "defaultValue": true,
+      "name": "minio.enabled",
+      "description": "是否开启",
+      "type": "java.lang.Boolean"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "name": "minio.endpoint",
+      "description": "MinIO的API地址",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "name": "minio.accessKey",
+      "description": "用户名",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "name": "minio.secretKey",
+      "description": "密钥",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "name": "minio.bucketName",
+      "description": "存储桶名称",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.file.configuration.properties.MinioProperties",
+      "name": "minio.customDomain",
+      "description": "自定义域名(非必须)",
+      "type": "java.lang.String"
+    }
+  ]
+}

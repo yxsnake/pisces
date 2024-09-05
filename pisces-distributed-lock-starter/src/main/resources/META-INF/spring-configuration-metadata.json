@@ -1,0 +1,31 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.distributed.configuration.properties.CustomRedissonProperties",
+      "name": "redisson",
+      "type": "io.github.yxsnake.pisces.distributed.configuration.properties.CustomRedissonProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "io.github.yxsnake.pisces.distributed.configuration.properties.CustomRedissonProperties",
+      "defaultValue": "single",
+      "name": "redisson.type",
+      "description": "redis类型(单机或集群) 可选值 single|cluster",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.distributed.configuration.properties.CustomRedissonProperties",
+      "name": "redisson.addresses",
+      "description": "连接地址 (single -> 127.0.0.1:6379 | cluster -> 192.168.100.101:6379,192.168.100.102:6379,192.168.100.103:6379)",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "io.github.yxsnake.pisces.distributed.configuration.properties.CustomRedissonProperties",
+      "name": "redisson.password",
+      "description": "redis密码",
+      "type": "java.lang.String"
+    }
+  ]
+}

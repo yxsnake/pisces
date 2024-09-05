@@ -24,8 +24,8 @@ import java.util.List;
  * @since 2023/8/19 23:39
  */
 @Slf4j
-@ConfigurationProperties(prefix = "spring.elasticsearch.rest")
-@Configuration
+//@ConfigurationProperties(prefix = "spring.elasticsearch.rest")
+//@Configuration
 public class RestHighLevelClientAutoConfiguration {
 
   @Setter
@@ -40,7 +40,7 @@ public class RestHighLevelClientAutoConfiguration {
   @Setter
   private String password;
 
-  @PostConstruct
+//  @PostConstruct
   public void init() {
     log.info("------------ elasticsearch-starter StartUp Information -----------");
     log.info("elasticsearch-starter");
@@ -51,7 +51,7 @@ public class RestHighLevelClientAutoConfiguration {
   }
 
 
-  @Bean
+//  @Bean
   public RestHighLevelClient restHighLevelClient() {
     HttpHost[] hosts = clusterNodes.stream()
       // eg: new HttpHost("127.0.0.1", 9200, "http")

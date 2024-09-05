@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "web-core.swagger")
 public class SwaggerProperties {
 
-    private String url;
+    private Boolean enabled;
 
     private String title;
 
@@ -19,7 +19,8 @@ public class SwaggerProperties {
 
     private String description;
 
-    private String version;
+    private String url;
 
+    private String version;
 
 }
