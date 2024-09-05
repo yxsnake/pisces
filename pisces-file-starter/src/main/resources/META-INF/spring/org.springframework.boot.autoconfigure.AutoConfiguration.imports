@@ -1,2 +1,1 @@
-io.github.yxsnake.pisces.file.service.impl.MinioServiceImpl
-io.github.yxsnake.pisces.file.controller.FileController
+io.github.yxsnake.pisces.file.configuration.MinioAutoConfiguration

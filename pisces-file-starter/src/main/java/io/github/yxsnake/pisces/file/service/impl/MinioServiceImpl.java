@@ -5,6 +5,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import io.github.yxsnake.pisces.file.configuration.properties.MinioProperties;
 import io.github.yxsnake.pisces.file.service.FileService;
 import io.github.yxsnake.pisces.file.model.FileInfo;
 import io.github.yxsnake.pisces.web.core.exception.BizException;
@@ -14,11 +15,9 @@ import io.minio.*;
 import io.minio.http.Method;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,54 +31,12 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-@ConfigurationProperties(prefix = "minio")
-public class MinioServiceImpl implements FileService, InitializingBean {
+@RequiredArgsConstructor
+public class MinioServiceImpl implements FileService {
 
-  /**
-   * MinIO的API地址
-   */
-  @Setter
-  private String endpoint;
+  private final MinioProperties minioProperties;
 
-  /**
-   * 用户名
-   */
-  @Setter
-  private String accessKey;
-
-  /**
-   * 密钥
-   */
-  @Setter
-  private String secretKey;
-
-  /**
-   * 存储桶名称
-   */
-  @Setter
-  private String bucketName;
-
-  /**
-   * 自定义域名(非必须)
-   */
-  @Setter
-  private String customDomain;
-
-
-  private MinioClient minioClient;
-
-  @Override
-  public void afterPropertiesSet() {
-    log.info("MinIO Client init...");
-    Assert.notBlank(endpoint, "MinIO endpoint can not be null");
-    Assert.notBlank(accessKey, "MinIO accessKey can not be null");
-    Assert.notBlank(secretKey, "MinIO secretKey can not be null");
-    Assert.notBlank(bucketName, "MinIO bucketName can not be null");
-    this.minioClient = MinioClient.builder()
-      .endpoint(endpoint)
-      .credentials(accessKey,secretKey)
-      .build();
-  }
+  private final MinioClient minioClient;
 
 
   /**
@@ -91,7 +48,7 @@ public class MinioServiceImpl implements FileService, InitializingBean {
   @Override
   public FileInfo uploadFile(MultipartFile file) {
     // 存储桶不存在则创建
-    createBucketIfAbsent(bucketName);
+    createBucketIfAbsent(minioProperties.getBucketName());
 
     // 生成文件名(日期文件夹)
     String suffix = FileUtil.getSuffix(file.getOriginalFilename());
@@ -101,7 +58,7 @@ public class MinioServiceImpl implements FileService, InitializingBean {
     try (InputStream inputStream = file.getInputStream()) {
       // 文件上传
       PutObjectArgs putObjectArgs = PutObjectArgs.builder()
-        .bucket(bucketName)
+        .bucket(minioProperties.getBucketName())
         .object(fileName)
         .contentType(file.getContentType())
         .stream(inputStream, inputStream.available(), -1)
@@ -110,10 +67,10 @@ public class MinioServiceImpl implements FileService, InitializingBean {
 
       // 返回文件路径
       String fileUrl;
-      if (StrUtil.isBlank(customDomain)) {
+      if (StrUtil.isBlank(minioProperties.getCustomDomain())) {
         //// 未配置自定义域名
         GetPresignedObjectUrlArgs getPresignedObjectUrlArgs = GetPresignedObjectUrlArgs.builder()
-          .bucket(bucketName).object(fileName)
+          .bucket(minioProperties.getBucketName()).object(fileName)
           .method(Method.GET)
           .build();
 
@@ -121,7 +78,7 @@ public class MinioServiceImpl implements FileService, InitializingBean {
         fileUrl = fileUrl.substring(0, fileUrl.indexOf("?"));
       } else {
         // 配置自定义文件路径域名
-        fileUrl = customDomain + '/' + bucketName + "/" + fileName;
+        fileUrl = minioProperties.getCustomDomain() + '/' + minioProperties.getBucketName() + "/" + fileName;
       }
 
       FileInfo fileInfo = new FileInfo();
@@ -145,12 +102,12 @@ public class MinioServiceImpl implements FileService, InitializingBean {
   @SneakyThrows
   public boolean deleteFile(String filePath) {
     Assert.notBlank(filePath, "删除文件路径不能为空");
-    String tempStr = "/" + bucketName + "/";
+    String tempStr = "/" + minioProperties.getBucketName() + "/";
     // 格式： 2022/11/20/test.jpg
     String fileName = filePath.substring(filePath.indexOf(tempStr) + tempStr.length());
 
     RemoveObjectArgs removeObjectArgs = RemoveObjectArgs.builder()
-      .bucket(bucketName)
+      .bucket(minioProperties.getBucketName())
       .object(fileName)
       .build();
     minioClient.removeObject(removeObjectArgs);
@@ -164,7 +121,7 @@ public class MinioServiceImpl implements FileService, InitializingBean {
     reqParams.put("filename","filePath");
 //    reqParams.put("response-content-type", "application/json");
     GetPresignedObjectUrlArgs getPresignedObjectUrlArgs = GetPresignedObjectUrlArgs.builder()
-      .bucket(bucketName)
+      .bucket(minioProperties.getBucketName())
       .method(Method.GET)
       .expiry(1, TimeUnit.HOURS)
       .object(filePath)
@@ -184,10 +141,10 @@ public class MinioServiceImpl implements FileService, InitializingBean {
   public void downloadFile(String downloadFileName,String filePath, HttpServletResponse response) {
     Assert.notBlank(filePath, "下载文件路径(filePath)不能为空");
     Assert.notBlank(downloadFileName, "下载文件名称(downloadFileName)不能为空");
-    String tempStr = "/" + bucketName + "/";
+    String tempStr = "/" + minioProperties.getBucketName() + "/";
     String fileName = filePath.substring(filePath.indexOf(tempStr) + tempStr.length());
     try {
-      InputStream inputStream = getFileInputStream(fileName, bucketName);
+      InputStream inputStream = getFileInputStream(fileName, minioProperties.getBucketName());
       response.setHeader("Content-Disposition", "attachment;filename=" + new String(downloadFileName.getBytes("ISO8859-1"), StandardCharsets.UTF_8));
       ServletOutputStream servletOutputStream = response.getOutputStream();
       int len;
