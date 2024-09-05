@@ -129,14 +129,14 @@ public abstract class AbstractTemplateEngine {
     public AbstractTemplateEngine batchOutput() {
         try {
             List<TableInfo> tableInfoList = getConfigBuilder().getTableInfoList();
-            // modify by kylin
+            // modify by pisces
             Map<String, String> pathInfo = getConfigBuilder().getPathInfo();
-            // add by kylin
-            Map<String, Object> metaObjectHandlerMap = buildMetaObjectHandlerStr();
+            // add by pisces
+//            Map<String, Object> metaObjectHandlerMap = buildMetaObjectHandlerStr();
             for (TableInfo tableInfo : tableInfoList) {
                 Map<String, Object> objectMap = getObjectMap(tableInfo);
-                // add by kylin
-                objectMap.putAll(metaObjectHandlerMap);
+                // add by pisces
+//                objectMap.putAll(metaObjectHandlerMap);
                 TemplateConfig template = getConfigBuilder().getTemplate();
                 // 自定义内容
                 InjectionConfig injectionConfig = getConfigBuilder().getInjectionConfig();
@@ -285,7 +285,7 @@ public abstract class AbstractTemplateEngine {
         objectMap.put("versionFieldName", config.getStrategyConfig().getVersionFieldName());
         objectMap.put("activeRecord", globalConfig.isActiveRecord());
         objectMap.put("kotlin", globalConfig.isKotlin());
-        objectMap.put("swagger2", globalConfig.isSwagger2());
+        objectMap.put("swagger3", globalConfig.isSwagger3());
         objectMap.put("date", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
         objectMap.put("table", tableInfo);
         objectMap.put("enableCache", globalConfig.isEnableCache());

@@ -22,6 +22,10 @@ public class KyPackageConfig extends PackageConfig {
    * Bo包名
    */
   private String bo = "bo";
+  /**
+   * Form包名
+   */
+  private String form ="form";
 
   private String metaObjectHandler = "handler.mybatis";
 

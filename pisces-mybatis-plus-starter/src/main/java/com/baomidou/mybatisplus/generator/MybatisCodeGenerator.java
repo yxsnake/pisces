@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.cons.PathCons;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import io.github.yxsnake.pisces.web.core.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -50,7 +51,7 @@ public class MybatisCodeGenerator {
     public MybatisCodeGenerator() {
         strategyConfig = (KyStrategyConfig) new KyStrategyConfig()
                 // 自定义实体父类
-//            .setSuperEntityClass(BaseModel.class)
+//            .setSuperEntityClass(BaseEntity.class)
                 // 自定义实体，公共字段
 //            .setSuperEntityColumns("id")
                 // 【实体】是否为lombok模型（默认 false）
@@ -64,7 +65,7 @@ public class MybatisCodeGenerator {
         ;
         // 自定义 controller 父类
         strategyConfig.setSuperControllerClass(
-                "com.kylin.web.core.framework.controller.BaseController");
+                "io.github.yxsnake.pisces.web.core.framework.controller.BaseController");
 
         dataSourceConfig = new DataSourceConfig();
 
@@ -90,7 +91,7 @@ public class MybatisCodeGenerator {
                 .setBaseResultMap(true)
                 .setBaseColumnList(true)
                 .setOpen(false)
-                .setAuthor("kylin")
+                .setAuthor("pisces")
                 //使用自定义模板覆盖默认模板
                 .setFileOverride(true);
 
@@ -105,11 +106,12 @@ public class MybatisCodeGenerator {
                 Map<String, Object> map = new HashMap<>();
                 map.put("dto", getPackageConfig().getParent() + StringPool.DOT + packageConfig.getDto());
                 map.put("bo", getPackageConfig().getParent() + StringPool.DOT + packageConfig.getBo());
-//        map.put("controllerRestApi", strategyConfig.isControllerRestApi());
+                map.put("form", getPackageConfig().getParent() + StringPool.DOT + packageConfig.getForm());
+                map.put("controllerRestApi", strategyConfig.isControllerRestApi());
 
                 // 自动填充 handler 的输出路径
-                String metaObjectPackageName = getPackageConfig().getParent() + DOT + packageConfig.getMetaObjectHandler();
-                map.put("metaObjectPackage", metaObjectPackageName);
+//                String metaObjectPackageName = getPackageConfig().getParent() + DOT + packageConfig.getMetaObjectHandler();
+//                map.put("metaObjectPackage", metaObjectPackageName);
 
                 this.setMap(map);
             }
@@ -146,26 +148,36 @@ public class MybatisCodeGenerator {
                 return getJavaPath() + SLASH + packageName + tableInfo.getEntityName() + "BO.java";
             }
         });
-//    if (strategyConfig.isControllerRestApi()) {
-//      fileOutConfigList.add(new FileOutConfig(
-//        PathCons.HTTP_TEMPLATES_PATH) {
-//        // 自定义 .http 输出文件目录
-//        @Override
-//        public String outputFile(TableInfo tableInfo) {
-//          return "http-request" + SLASH + "client" + SLASH + tableInfo.getEntityName() + ".http";
-//        }
-//      });
-//    }
         fileOutConfigList.add(new FileOutConfig(
-                PathCons.MEAT_OBJECT_HANDLER_TEMPLATES_PATH) {
-            // 自定义 mybatis plus meta object handler 输出文件目录
+                PathCons.FORM_TEMPLATES_PATH) {
+            // 自定义 Form 输出文件目录
             @Override
             public String outputFile(TableInfo tableInfo) {
-                String packageName = (getPackageConfig().getParent() + DOT + getPackageConfig().getMetaObjectHandler() + DOT)
+                String packageName = (getPackageConfig().getParent() + DOT + getPackageConfig().getBo() + DOT)
                         .replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
-                return getJavaPath() + SLASH + packageName + "KyMetaObjectHandler.java";
+                return getJavaPath() + SLASH + packageName + tableInfo.getEntityName() + "Form.java";
             }
         });
+        if (strategyConfig.isControllerRestApi()) {
+          fileOutConfigList.add(new FileOutConfig(
+            PathCons.HTTP_TEMPLATES_PATH) {
+            // 自定义 .http 输出文件目录
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+              return "http-request" + SLASH + "client" + SLASH + tableInfo.getEntityName() + ".http";
+            }
+          });
+        }
+//        fileOutConfigList.add(new FileOutConfig(
+//                PathCons.MEAT_OBJECT_HANDLER_TEMPLATES_PATH) {
+//            // 自定义 mybatis plus meta object handler 输出文件目录
+//            @Override
+//            public String outputFile(TableInfo tableInfo) {
+//                String packageName = (getPackageConfig().getParent() + DOT + getPackageConfig().getMetaObjectHandler() + DOT)
+//                        .replaceAll("\\.", StringPool.BACK_SLASH + File.separator);
+//                return getJavaPath() + SLASH + packageName + "KyMetaObjectHandler.java";
+//            }
+//        });
         return fileOutConfigList;
     }
 

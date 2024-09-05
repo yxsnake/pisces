@@ -545,12 +545,12 @@ public class ConfigBuilder {
                         field.setComment(formatComment(results.getString(fieldCommentColumn)));
                     }
                     // 填充逻辑判断
-                    List<TableFill> tableFillList = getStrategyConfig().getTableFillList();
-                    if (null != tableFillList) {
-                        // 忽略大写字段问题
-                        tableFillList.stream().filter(tf -> tf.getFieldName().equalsIgnoreCase(field.getName()))
-                                .findFirst().ifPresent(tf -> field.setFill(tf.getFieldFill().name()));
-                    }
+//                    List<TableFill> tableFillList = getStrategyConfig().getTableFillList();
+//                    if (null != tableFillList) {
+//                        // 忽略大写字段问题
+//                        tableFillList.stream().filter(tf -> tf.getFieldName().equalsIgnoreCase(field.getName()))
+//                                .findFirst().ifPresent(tf -> field.setFill(tf.getFieldFill().name()));
+//                    }
                     if (strategyConfig.includeSuperEntityColumns(field.getName())) {
                         // 跳过公共字段
                         commonFieldList.add(field);
