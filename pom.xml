@@ -47,10 +47,12 @@
         <module>pisces-elasticsearch-starter</module>
         <module>pisces-apollo-starter</module>
         <module>pisces-distributed-lock-starter</module>
+        <module>pisces-excel-starter</module>
+        <module>pisces-idempotent-starter</module>
     </modules>
 
     <properties>
-        <revision>2.0.3</revision>
+        <revision>2.0.4</revision>
         <spring-boot.version>3.3.2</spring-boot.version>
         <java.version>17</java.version>
 
@@ -63,8 +65,9 @@
         <jackson.version>2.16.1</jackson.version>
         <reactor-core.version>3.6.2</reactor-core.version>
         <commons-lang3.version>3.14.0</commons-lang3.version>
-        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
         <mybatis-spring.version>3.0.3</mybatis-spring.version>
+        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
         <p6spy-spring-boot-starter.version>1.9.1</p6spy-spring-boot-starter.version>
         <swagger-annotations.version>2.2.20</swagger-annotations.version>
         <transmittable-thread-local.version>2.14.5</transmittable-thread-local.version>
@@ -103,6 +106,9 @@
         <undertow-core.version>2.3.15.Final</undertow-core.version>
 
         <bcprov-jdk18on.version>1.78.1</bcprov-jdk18on.version>
+        <easyexcel.version>4.0.3</easyexcel.version>
+        <freemarker.version>2.3.33</freemarker.version>
+        <easy-random-core.version>4.2.0</easy-random-core.version>
 
     </properties>
 
@@ -167,6 +173,16 @@
                 <artifactId>pisces-distributed-lock-starter</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>io.github.yxsnake</groupId>
+                <artifactId>pisces-excel-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.yxsnake</groupId>
+                <artifactId>pisces-idempotent-starter</artifactId>
+                <version>${revision}</version>
+            </dependency>
             <!--第三方依赖-->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -190,7 +206,7 @@
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
@@ -405,18 +421,24 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.4.1</version>
+                <version>${mybatis-plus-generator.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jeasy</groupId>
                 <artifactId>easy-random-core</artifactId>
-                <version>4.2.0</version>
+                <version>${easy-random-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.freemarker</groupId>
                 <artifactId>freemarker</artifactId>
-                <version>2.3.33</version>
+                <version>${freemarker.version}</version>
                 <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -482,7 +504,7 @@
                 <configuration>
 
                     <source>${java.version}</source>
-                    <target>${java.version</target>
+                    <target>${java.version}</target>
                     <compilerArgs>
                         <arg>-Xlint:deprecation</arg>
                         <arg>-Xlint:unchecked</arg>

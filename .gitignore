@@ -42,6 +42,8 @@ pisces-request-log-starter/target
 pisces-rocketmq-starter/target
 pisces-web-core-starter/target
 pisces-xxl-job-starter/target
+pisces-excel-starter/target
+pisces-idempotent-starter/target
 
 example-boot/target
 

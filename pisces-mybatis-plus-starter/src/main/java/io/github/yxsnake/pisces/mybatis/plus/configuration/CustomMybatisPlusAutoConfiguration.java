@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.*;
 import io.github.yxsnake.pisces.mybatis.plus.configuration.properties.MybatisPlusExtProperties;
 import io.github.yxsnake.pisces.mybatis.plus.handler.CustomTenantHandler;
+import io.github.yxsnake.pisces.mybatis.plus.handler.MybatisExceptionHandler;
+import io.github.yxsnake.pisces.mybatis.plus.service.SysDataScopeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -45,5 +47,19 @@ public class CustomMybatisPlusAutoConfiguration {
     return interceptor;
   }
 
+  /**
+   * 异常处理器
+   */
+  @Bean
+  public MybatisExceptionHandler mybatisExceptionHandler() {
+    return new MybatisExceptionHandler();
+  }
 
+  /**
+   * 数据权限处理实现
+   */
+  @Bean("sdss")
+  public SysDataScopeService sysDataScopeService() {
+    return new SysDataScopeService();
+  }
 }
